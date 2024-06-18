@@ -46,7 +46,7 @@ public class DatabaseManager {
 
     public void exportDatabaseToSql(String dbName, String filePath) {
         executor.submit(() -> {
-            // This is a placeholder. In a real application, you might use pg_dump or a similar tool.
+
             System.out.println("Exporting database to SQL file is not implemented yet.");
         });
     }

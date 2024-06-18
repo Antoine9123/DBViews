@@ -37,6 +37,7 @@ public class App extends Application {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.show();
+        //test
     }
 
     public static void main(String[] args) {

@@ -20,7 +20,7 @@ public class SidePanelView extends BorderPane {
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(20));
 
-        Label headTitle = new Label("MY DATABASE");
+        Label headTitle = new Label("No Database.");
         headTitle.setTextFill(Color.WHITE);
         headTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 

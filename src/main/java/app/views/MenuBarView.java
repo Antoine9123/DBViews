@@ -1,5 +1,6 @@
 package app.views;
 
+import app.models.DatabaseManager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -8,6 +9,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MenuBarView {
     private final MenuBar menuBar;
@@ -82,12 +85,18 @@ public class MenuBarView {
             String password = passwordField.getText();
             String dbName = dbNameField.getText();
             String path = pathField.getText();
+            String dbPath = path + "/" + dbName;
 
-
-            System.out.println("User: " + user);
-            System.out.println("Password: " + password);
-            System.out.println("Database Name: " + dbName);
-            System.out.println("Path: " + path);
+            DatabaseManager dbManager = new DatabaseManager();
+            try {
+                dbManager.createDatabase(dbPath, user, password);
+                Connection connection = dbManager.openDatabase(dbPath, user, password);
+                System.out.println("Database created and connected successfully!");
+                // Here you can proceed with further operations on the database
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                // Handle exceptions appropriately in a real application
+            }
 
             formStage.close();
         });

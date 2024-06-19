@@ -5,32 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private final String url;
-    private final String user;
-    private final String password;
-    private Connection connection;
 
-    public DatabaseConnection(String url, String user, String password) {
-        this.url = url;
+    private static final String JDBC_URL = "jdbc:h2:";
+    private String dbPath;
+    private String user;
+    private String password;
+
+    public DatabaseConnection(String dbPath, String user, String password) {
+        this.dbPath = dbPath;
         this.user = user;
         this.password = password;
     }
 
-    public void connect() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to the PostgreSQL server successfully.");
-        }
-    }
-
-    public void disconnect() throws SQLException {
-        if (connection != null && !connection.isClosed()) {
-            connection.close();
-            System.out.println("Disconnected from the PostgreSQL server.");
-        }
-    }
-
-    public Connection getConnection() {
-        return connection;
+    public Connection connect() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL + dbPath, user, password);
     }
 }

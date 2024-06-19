@@ -11,7 +11,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class SidePanelView extends BorderPane {
+    private Label headTitle;
+
     public SidePanelView() {
+        headTitle = new Label("No Database.");
+        headTitle.setTextFill(Color.WHITE);
+        headTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
         Rectangle sidePanel = new Rectangle(300, 1000);
         sidePanel.setFill(Color.rgb(47, 48, 48));
@@ -19,10 +24,6 @@ public class SidePanelView extends BorderPane {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(20));
-
-        Label headTitle = new Label("No Database.");
-        headTitle.setTextFill(Color.WHITE);
-        headTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
         Label tablesTitle = new Label("TABLES");
         tablesTitle.setTextFill(Color.WHITE);
@@ -36,5 +37,14 @@ public class SidePanelView extends BorderPane {
 
         this.setLeft(stackPane);
     }
+
+    public void setDatabaseName(String dbName) {
+        if (headTitle != null) {
+            headTitle.setText(dbName);
+        } else {
+            System.err.println("headTitle is null");
+        }
+    }
 }
+
 

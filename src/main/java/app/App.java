@@ -16,13 +16,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        BorderPane root = new BorderPane();
-
         MainView mainView = new MainView(10);
         SidePanelView sidePanelView = new SidePanelView();
-        MenuBarView menuBarView = new MenuBarView();
+        MenuBarView menuBarView = new MenuBarView(sidePanelView);
 
+        BorderPane root = new BorderPane();
         root.setCenter(mainView);
         root.setLeft(sidePanelView);
         root.setTop(menuBarView.getMenuBar());

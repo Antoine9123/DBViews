@@ -1,4 +1,4 @@
-package app.dbviews.views;
+package app.views;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;

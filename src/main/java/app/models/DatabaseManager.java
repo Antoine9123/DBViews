@@ -1,4 +1,4 @@
-package app.dbviews.database;
+package app.models;
 
 import java.io.IOException;
 import java.nio.file.Files;

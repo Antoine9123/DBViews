@@ -1,4 +1,4 @@
-package app.dbviews.database;
+package app.models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,8 +1,8 @@
-package app.dbviews;
+package app;
 
-import app.dbviews.views.MainView;
-import app.dbviews.views.MenuBarView;
-import app.dbviews.views.SidePanelView;
+import app.views.MainView;
+import app.views.MenuBarView;
+import app.views.SidePanelView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -27,9 +27,9 @@ public class App extends Application {
         root.setLeft(sidePanelView);
         root.setTop(menuBarView.getMenuBar());
 
-        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+        Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-        stage.setScene(scene);
+        stage.setScene(mainScene);
         stage.setTitle(WINDOW_TITLE);
         stage.setResizable(false);
         stage.centerOnScreen();

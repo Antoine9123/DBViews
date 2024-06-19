@@ -1,4 +1,4 @@
-package app.dbviews.views;
+package app.views;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

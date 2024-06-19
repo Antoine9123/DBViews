@@ -19,7 +19,8 @@ public class DatabaseManager {
         System.out.println("Database created");
     }
 
-    public Connection openDatabase(String dbPath, String user, String password) throws SQLException {
+    public Connection openDatabase(String dbName, String user, String password) throws SQLException {
+        String dbPath = "./src/main/resources/app/db/" + dbName;
         return DriverManager.getConnection("jdbc:h2:" + dbPath, user, password);
     }
 }

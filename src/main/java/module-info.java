@@ -11,5 +11,8 @@ module app.dbviews {
     exports app;
     exports app.models;
     exports app.views;
+    exports app.views.db;
     exports app.controllers;
+    opens app.models;
+
 }

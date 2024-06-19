@@ -2,6 +2,8 @@ package app.views;
 
 import app.controllers.OpenDbFormController;
 import app.controllers.NewDbFormController;
+import app.views.db.DatabaseCreatorView;
+import app.views.db.DatabaseSelectorView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,48 +34,21 @@ public class MenuBarView {
         MenuItem createDbItem = new MenuItem("Create DB");
         MenuItem openDbItem = new MenuItem("Open DB");
 
-        createDbItem.setOnAction(e -> openCreateDbForm());
-        openDbItem.setOnAction(e -> openConnectDbForm());
+        createDbItem.setOnAction(e -> openDatabaseCreator());
+        openDbItem.setOnAction(e -> openDatabaseSelector());
 
         fileMenu.getItems().addAll(createDbItem, openDbItem);
 
         menuBar.getMenus().add(fileMenu);
     }
-
-    private void openCreateDbForm() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/CreateDbForm.fxml"));
-            Parent root = loader.load();
-
-            NewDbFormController controller = loader.getController();
-            Stage formStage = new Stage();
-            controller.setCreateFormStage(formStage);
-
-            Scene scene = new Scene(root);
-            formStage.setScene(scene);
-            formStage.setTitle("Create New Database");
-            formStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void openDatabaseCreator() {
+        DatabaseCreatorView creatorView = new DatabaseCreatorView();
+        creatorView.showAndWait();
     }
 
-    private void openConnectDbForm() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/ConnectDbForm.fxml"));
-            Parent root = loader.load();
-
-            OpenDbFormController controller = loader.getController();
-            Stage formStage = new Stage();
-            controller.setFormStage(formStage);
-            controller.setSidePanelView(sidePanelView);
-
-            Scene scene = new Scene(root);
-            formStage.setScene(scene);
-            formStage.setTitle("Connect to Database");
-            formStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void openDatabaseSelector() {
+        DatabaseSelectorView selectorView = new DatabaseSelectorView();
+        selectorView.showAndWait();
     }
+
 }

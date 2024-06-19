@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class SidePanelView extends BorderPane {
-    private Label headTitle;
+    private final Label headTitle;
 
     public SidePanelView() {
         headTitle = new Label("No Database.");

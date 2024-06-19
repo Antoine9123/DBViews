@@ -1,5 +1,6 @@
 package app.views.db;
 
+import app.views.SidePanelView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -20,8 +21,10 @@ public class DatabaseSelectorView {
 
     private final Stage stage;
     private final ComboBox<String> dbComboBox;
+    private final SidePanelView sidePanelView;
 
-    public DatabaseSelectorView() {
+    public DatabaseSelectorView(SidePanelView sidePanelView) {
+        this.sidePanelView = sidePanelView;
         stage = new Stage();
         stage.setTitle("Open Database");
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -70,8 +73,9 @@ public class DatabaseSelectorView {
             DatabaseOpenerView openerView = new DatabaseOpenerView(selectedDatabase);
             openerView.showAndWait();
             stage.close();
+            sidePanelView.setHeadTitle(selectedDatabase);
         } else {
-            System.err.println("Veuillez sélectionner une base de données.");
+            System.err.println("Please select a database");
         }
     }
 

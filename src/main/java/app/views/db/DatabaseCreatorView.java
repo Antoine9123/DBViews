@@ -22,6 +22,10 @@ public class DatabaseCreatorView {
     public DatabaseCreatorView() {
         stage = new Stage();
         stage.setTitle("Create Database");
+        stage.setWidth(500);
+        stage.setHeight(300);
+        stage.setResizable(false);
+
         stage.initModality(Modality.APPLICATION_MODAL);
 
         Label dbNameLabel = new Label("Database Name:");

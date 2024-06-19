@@ -47,7 +47,7 @@ public class MenuBarView {
     }
 
     private void openDatabaseSelector() {
-        DatabaseSelectorView selectorView = new DatabaseSelectorView();
+        DatabaseSelectorView selectorView = new DatabaseSelectorView(this.sidePanelView);
         selectorView.showAndWait();
     }
 

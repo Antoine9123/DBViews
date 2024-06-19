@@ -38,7 +38,7 @@ public class SidePanelView extends BorderPane {
         this.setLeft(stackPane);
     }
 
-    public void setDatabaseName(String dbName) {
+    public void setHeadTitle(String dbName) {
         if (headTitle != null) {
             headTitle.setText(dbName);
         } else {

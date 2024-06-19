@@ -1,39 +1,44 @@
 package app.controllers;
 
 import app.models.DatabaseManager;
+import app.views.SidePanelView;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class CreateDbFormController {
+public class OpenDbFormController {
     @FXML
     private TextField userField;
     @FXML
     private PasswordField passwordField;
     @FXML
-    private TextField dbNameField;
-    @FXML
     private TextField pathField;
 
     private Stage formStage;
+    private SidePanelView sidePanelView;
 
     public void setFormStage(Stage formStage) {
         this.formStage = formStage;
     }
 
+    public void setSidePanelView(SidePanelView sidePanelView) {
+        this.sidePanelView = sidePanelView;
+    }
+
     @FXML
     private void handleBrowse() {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Select Installation Directory");
-        File selectedDirectory = directoryChooser.showDialog(formStage);
-        if (selectedDirectory != null) {
-            pathField.setText(selectedDirectory.getAbsolutePath());
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Database File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Database Files", "*.db", "*.mv.db"));
+        File selectedFile = fileChooser.showOpenDialog(formStage);
+        if (selectedFile != null) {
+            pathField.setText(selectedFile.getAbsolutePath());
         }
     }
 
@@ -41,15 +46,13 @@ public class CreateDbFormController {
     private void handleSubmit() {
         String user = userField.getText();
         String password = passwordField.getText();
-        String dbName = dbNameField.getText();
-        String path = pathField.getText();
-        String dbPath = path + "/" + dbName;
+        String dbPath = pathField.getText();
 
         DatabaseManager dbManager = new DatabaseManager();
         try {
-            dbManager.createDatabase(dbPath, user, password);
             Connection connection = dbManager.openDatabase(dbPath, user, password);
-            System.out.println("Database created and connected successfully!");
+            System.out.println("Database connected successfully!");
+            sidePanelView.setHeadTitle(new File(dbPath).getName());
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -57,4 +60,3 @@ public class CreateDbFormController {
         formStage.close();
     }
 }
-

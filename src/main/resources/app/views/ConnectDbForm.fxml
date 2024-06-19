@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:controller="app.controllers.ConnectDbFormController" xmlns:fx="http://javafx.com/fxml">
+<GridPane fx:controller="app.controllers.OpenDbFormController" xmlns:fx="http://javafx.com/fxml">
     <Label text="User:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <TextField fx:id="userField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 

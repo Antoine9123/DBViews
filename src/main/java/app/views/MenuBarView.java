@@ -1,7 +1,7 @@
 package app.views;
 
-import app.controllers.ConnectDbFormController;
-import app.controllers.CreateDbFormController;
+import app.controllers.OpenDbFormController;
+import app.controllers.NewDbFormController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -45,9 +45,9 @@ public class MenuBarView {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/CreateDbForm.fxml"));
             Parent root = loader.load();
 
-            CreateDbFormController controller = loader.getController();
+            NewDbFormController controller = loader.getController();
             Stage formStage = new Stage();
-            controller.setFormStage(formStage);
+            controller.setCreateFormStage(formStage);
 
             Scene scene = new Scene(root);
             formStage.setScene(scene);
@@ -63,7 +63,7 @@ public class MenuBarView {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/views/ConnectDbForm.fxml"));
             Parent root = loader.load();
 
-            ConnectDbFormController controller = loader.getController();
+            OpenDbFormController controller = loader.getController();
             Stage formStage = new Stage();
             controller.setFormStage(formStage);
             controller.setSidePanelView(sidePanelView);

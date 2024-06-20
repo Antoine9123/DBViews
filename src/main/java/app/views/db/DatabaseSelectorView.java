@@ -1,5 +1,6 @@
 package app.views.db;
 
+import app.services.ConfigLoader;
 import app.views.SidePanelView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,7 +50,7 @@ public class DatabaseSelectorView {
     }
 
     private void loadDatabases() {
-        Path dbDirectory = Paths.get("src/main/resources/app/db");
+        Path dbDirectory = Paths.get(ConfigLoader.getProperty("database.path"));
         try {
             List<String> databaseList = Files.list(dbDirectory)
                     .filter(Files::isRegularFile)

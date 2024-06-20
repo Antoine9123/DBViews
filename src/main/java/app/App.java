@@ -1,5 +1,6 @@
 package app;
 
+import app.services.ConfigLoader;
 import app.views.MainView;
 import app.views.MenuBarView;
 import app.views.SidePanelView;

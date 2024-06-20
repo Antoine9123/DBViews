@@ -1,5 +1,7 @@
 package app.models;
 
+import app.services.ConfigLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,7 +11,7 @@ import java.sql.Statement;
 public class DatabaseManager {
 
     public void createDatabase(String dbName, String user, String password) throws SQLException {
-        String dbPath = "./src/main/resources/app/db/" + dbName;
+        String dbPath = ConfigLoader.getProperty("database.path") + dbName;
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:" + dbPath, user, password);
              Statement statement = connection.createStatement()) {
@@ -20,7 +22,7 @@ public class DatabaseManager {
     }
 
     public Connection openDatabase(String dbName, String user, String password) throws SQLException {
-        String dbPath = "./src/main/resources/app/db/" + dbName;
+        String dbPath = ConfigLoader.getProperty("database.path") + dbName;
         return DriverManager.getConnection("jdbc:h2:" + dbPath, user, password);
     }
 }

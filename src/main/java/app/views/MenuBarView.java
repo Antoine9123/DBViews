@@ -1,18 +1,13 @@
 package app.views;
 
-import app.controllers.OpenDbFormController;
-import app.controllers.NewDbFormController;
+;
 import app.views.db.DatabaseCreatorView;
 import app.views.db.DatabaseSelectorView;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class MenuBarView {
     private final MenuBar menuBar;

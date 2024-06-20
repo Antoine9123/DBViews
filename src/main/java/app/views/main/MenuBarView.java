@@ -1,10 +1,9 @@
-package app.views.waiting;
+package app.views.main;
 
 ;
 
-import app.views.DatabaseCreatorView;
-import app.views.DatabaseSelectorView;
-import app.views.waiting.SidePanelView;
+import app.views.database.DatabaseCreatorView;
+import app.views.database.DatabaseSelectorView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;

@@ -1,4 +1,4 @@
-package app.views;
+package app.views.database;
 
 import app.models.DatabaseManager;
 import javafx.geometry.Insets;
@@ -60,7 +60,8 @@ public class DatabaseCreatorView {
 
         if (!dbName.isEmpty() && !dbUser.isEmpty() && !dbPassword.isEmpty()) {
             try {
-                DatabaseManager.createDatabase(dbName, dbUser, dbPassword);
+                DatabaseManager dbManager = new DatabaseManager();
+                dbManager.createDatabase(dbName, dbUser, dbPassword);
                 stage.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();

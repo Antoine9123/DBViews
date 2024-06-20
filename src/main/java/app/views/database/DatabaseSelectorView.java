@@ -1,7 +1,10 @@
-package app.views;
+package app.views.database;
 
 import app.models.ConnectionManager;
 import app.services.ConfigLoader;
+import app.views.MainWindowView;
+import app.views.database.DatabaseCreatorView;
+import app.views.database.DatabaseCredentialsView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

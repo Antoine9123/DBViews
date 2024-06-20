@@ -1,5 +1,6 @@
-package app.views.waiting;
+package app.views.main;
 
+import app.models.ConnectionManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +15,8 @@ public class SidePanelView extends BorderPane {
     private final Label headTitle;
 
     public SidePanelView() {
-        headTitle = new Label("No Database.");
+        String dbName = ConnectionManager.getInstance().getDbName();
+        headTitle = new Label(dbName);
         headTitle.setTextFill(Color.WHITE);
         headTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 

@@ -1,4 +1,4 @@
-package app.views;
+package app.views.database;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -1,13 +1,20 @@
 package app.models;
 
+import app.services.ConfigLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    private static final String JDBC_URL = "jdbc:h2:";
+    private static final String JDBC_URL = "jdbc:h2:" + ConfigLoader.getProperty("database.path");
     private static ConnectionManager instance;
+
+    public String getDbName() {
+        return dbName;
+    }
+
     private String dbName;
     private String user;
     private String password;

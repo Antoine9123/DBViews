@@ -11,6 +11,7 @@ module app.dbviews {
     exports app.models;
     exports app.views;
     opens app.models;
-    exports app.views.waiting;
+    exports app.views.main;
+    exports app.views.database;
 
 }

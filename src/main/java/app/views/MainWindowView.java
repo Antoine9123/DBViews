@@ -1,8 +1,8 @@
 package app.views;
 
-import app.views.waiting.MainView;
-import app.views.waiting.MenuBarView;
-import app.views.waiting.SidePanelView;
+import app.views.main.MainView;
+import app.views.main.MenuBarView;
+import app.views.main.SidePanelView;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;

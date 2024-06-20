@@ -3,7 +3,7 @@ package app;
 import app.models.ConnectionManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import app.views.DatabaseSelectorView;
+import app.views.database.DatabaseSelectorView;
 
 public class App extends Application {
 

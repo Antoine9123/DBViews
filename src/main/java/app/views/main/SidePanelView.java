@@ -21,54 +21,62 @@ public class SidePanelView extends BorderPane {
     private final VBox tablesContainer;
 
     public SidePanelView() {
+
+        setPadding(new Insets(20));
+
+
+
+        VBox leftPanel = new VBox();
+        leftPanel.setSpacing(10);
+
+
         String dbName = ConnectionManager.getInstance().getDbName();
-        headTitle = new Label(dbName);
+        headTitle = new Label("DATABASE NAME:\n" + dbName);
         headTitle.setTextFill(Color.WHITE);
         headTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-
-        Rectangle sidePanel = new Rectangle(300, 1000);
-        sidePanel.setFill(Color.rgb(47, 48, 48));
-
-        VBox vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.setPadding(new Insets(20));
+        headTitle.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-padding: 10px;");
 
         Label tablesTitle = new Label("TABLES");
         tablesTitle.setTextFill(Color.WHITE);
         tablesTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
-        tablesContainer = new VBox(5);
 
-        vbox.getChildren().addAll(headTitle, tablesTitle, tablesContainer);
+        tablesContainer = new VBox();
+
+
+
+        leftPanel.getChildren().addAll(headTitle, tablesTitle, tablesContainer);
+
+
+        Rectangle sidePanelBackground = new Rectangle(400, 1000);
+        sidePanelBackground.setFill(Color.rgb(47, 48, 48));
+
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(sidePanel, vbox);
-        StackPane.setMargin(vbox, new Insets(20.0));
+        stackPane.getChildren().addAll(sidePanelBackground, leftPanel);
 
-        this.setLeft(stackPane);
+        setLeft(stackPane);
 
-        // Load tables initially
         loadTables();
     }
 
-    private void loadTables() {
-        try {
-            String dbName = ConnectionManager.getInstance().getDbName();
-            DatabaseManager dbManager = new DatabaseManager();
-            List<String> tables = dbManager.getAllUserTables();
-            updateTables(tables);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void updateTables(List<String> tables) {
+    public void updateTablesList(List<String> tables) {
         tablesContainer.getChildren().clear();
-
         for (String tableName : tables) {
             Label tableLabel = new Label(tableName);
             tableLabel.setTextFill(Color.WHITE);
             tablesContainer.getChildren().add(tableLabel);
+        }
+    }
+
+
+    private void loadTables() {
+        try {
+            DatabaseManager dbManager = new DatabaseManager();
+            List<String> tables = dbManager.getAllUserTables();
+            updateTablesList(tables);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 }

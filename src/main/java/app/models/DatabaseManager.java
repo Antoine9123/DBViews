@@ -46,7 +46,7 @@ public class DatabaseManager {
         if (tables.isEmpty()){
             return null;
         }
-        else {return tables;}
+        else return tables;
 
     }
 

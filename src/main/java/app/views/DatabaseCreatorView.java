@@ -1,4 +1,4 @@
-package app.views.db;
+package app.views;
 
 import app.models.DatabaseManager;
 import javafx.geometry.Insets;
@@ -59,16 +59,16 @@ public class DatabaseCreatorView {
         String dbPassword = dbPasswordField.getText();
 
         if (!dbName.isEmpty() && !dbUser.isEmpty() && !dbPassword.isEmpty()) {
-            DatabaseManager dbManager = new DatabaseManager();
             try {
-                dbManager.createDatabase(dbName, dbUser, dbPassword);
+                DatabaseManager.createDatabase(dbName, dbUser, dbPassword);
                 stage.close();
             } catch (SQLException ex) {
-
                 ex.printStackTrace();
+
             }
         } else {
-            System.err.println("Veuillez remplir tous les champs.");
+            System.err.println("Please fill all fields");
+
         }
     }
 }

@@ -10,7 +10,7 @@ module app.dbviews {
     exports app;
     exports app.models;
     exports app.views;
-    exports app.views.db;
     opens app.models;
+    exports app.views.waiting;
 
 }

@@ -1,4 +1,4 @@
-package app.views;
+package app.views.waiting;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;

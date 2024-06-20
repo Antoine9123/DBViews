@@ -1,9 +1,10 @@
-package app.views;
+package app.views.waiting;
 
 ;
-import app.views.db.DatabaseCreatorView;
-import app.views.db.DatabaseSelectorView;
 
+import app.views.DatabaseCreatorView;
+import app.views.DatabaseSelectorView;
+import app.views.waiting.SidePanelView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -42,7 +43,7 @@ public class MenuBarView {
     }
 
     private void openDatabaseSelector() {
-        DatabaseSelectorView selectorView = new DatabaseSelectorView(this.sidePanelView);
+        DatabaseSelectorView selectorView = new DatabaseSelectorView();
         selectorView.showAndWait();
     }
 

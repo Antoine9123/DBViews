@@ -1,7 +1,7 @@
-package app.views.db;
+package app.views;
 
+import app.models.ConnectionManager;
 import app.services.ConfigLoader;
-import app.views.SidePanelView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -15,20 +15,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DatabaseSelectorView {
+public class DatabaseSelectorView extends Stage {
 
-    private final Stage stage;
     private final ComboBox<String> dbComboBox;
-    private final SidePanelView sidePanelView;
 
-    public DatabaseSelectorView(SidePanelView sidePanelView) {
-        this.sidePanelView = sidePanelView;
-        stage = new Stage();
-        stage.setTitle("Open Database");
-        stage.initModality(Modality.APPLICATION_MODAL);
+    public DatabaseSelectorView() {
+        this.setTitle("Open Database");
+        this.initModality(Modality.APPLICATION_MODAL);
 
         dbComboBox = new ComboBox<>();
         dbComboBox.setPromptText("Select Database");
@@ -36,17 +33,16 @@ public class DatabaseSelectorView {
         Button openButton = new Button("Open");
         openButton.setOnAction(e -> openSelectedDatabase());
 
+        Button newButton = new Button("New");
+        newButton.setOnAction(e -> createNewDatabase());
+
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(dbComboBox, openButton);
+        layout.getChildren().addAll(dbComboBox, openButton, newButton);
 
         Scene scene = new Scene(layout, 300, 200);
-        stage.setScene(scene);
+        this.setScene(scene);
 
         loadDatabases();
-    }
-
-    public void showAndWait() {
-        stage.showAndWait();
     }
 
     private void loadDatabases() {
@@ -69,15 +65,27 @@ public class DatabaseSelectorView {
 
     private void openSelectedDatabase() {
         String selectedDatabase = dbComboBox.getSelectionModel().getSelectedItem();
-        System.out.println(selectedDatabase);
         if (selectedDatabase != null) {
-            DatabaseOpenerView openerView = new DatabaseOpenerView(selectedDatabase);
-            openerView.showAndWait();
-            stage.close();
-            sidePanelView.setHeadTitle(selectedDatabase);
+            DatabaseCredentialsView credentialsView = new DatabaseCredentialsView(selectedDatabase);
+            credentialsView.showAndWait();
+            String user = credentialsView.getUser();
+            String password = credentialsView.getPassword();
+            if (user != null && password != null) {
+                ConnectionManager.getInstance().setCredentials(selectedDatabase, user, password);
+                MainWindowView mainWindow = new MainWindowView();
+                mainWindow.show();
+                this.close();
+            } else {
+                System.err.println("Please provide database credentials.");
+            }
         } else {
             System.err.println("Please select a database");
         }
     }
 
+    private void createNewDatabase() {
+        DatabaseCreatorView creatorView = new DatabaseCreatorView();
+        creatorView.showAndWait();
+        loadDatabases();
+    }
 }

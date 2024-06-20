@@ -1,28 +1,30 @@
 package app.models;
 
-import app.services.ConfigLoader;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 public class DatabaseManager {
 
-    public void createDatabase(String dbName, String user, String password) throws SQLException {
-        String dbPath = ConfigLoader.getProperty("database.path") + dbName;
+    private static ConnectionManager dbConnection;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:" + dbPath, user, password);
+    public DatabaseManager() {
+        dbConnection = ConnectionManager.getInstance();
+    }
+
+    public static void createDatabase(String dbName, String user, String password) throws SQLException {
+        dbConnection.setCredentials(dbName, user, password);
+        try (Connection connection = dbConnection.connect();
              Statement statement = connection.createStatement()) {
 
-            statement.execute("CREATE TABLE IF NOT EXISTS example_table (id INT PRIMARY KEY, name VARCHAR(255))");
+            statement.execute("CREATE DATABASE IF NOT EXISTS " + dbName);
         }
         System.out.println("Database created");
     }
 
-    public Connection openDatabase(String dbName, String user, String password) throws SQLException {
-        String dbPath = ConfigLoader.getProperty("database.path") + dbName;
-        return DriverManager.getConnection("jdbc:h2:" + dbPath, user, password);
+    public Connection openDatabase() throws SQLException {
+        return dbConnection.connect();
     }
 }
+

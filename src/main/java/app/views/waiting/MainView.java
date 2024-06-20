@@ -1,4 +1,4 @@
-package app.views;
+package app.views.waiting;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;

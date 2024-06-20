@@ -3,14 +3,16 @@ package app.views.database;
 import app.models.ConnectionManager;
 import app.services.ConfigLoader;
 import app.views.MainWindowView;
-import app.views.database.DatabaseCreatorView;
-import app.views.database.DatabaseCredentialsView;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,31 +26,41 @@ import java.util.stream.Collectors;
 
 public class DatabaseSelectorView extends Stage {
 
-    private final ComboBox<String> dbComboBox;
+    private final ListView<String> dbListView;
 
     public DatabaseSelectorView() {
         this.setTitle("Open Database");
         this.initModality(Modality.APPLICATION_MODAL);
+        this.setResizable(false);
 
-        dbComboBox = new ComboBox<>();
-        dbComboBox.setPromptText("Select Database");
+        dbListView = new ListView<>();
+        dbListView.setPrefHeight(200);
+        dbListView.setPlaceholder(new Text("No databases found"));
+
+        Label title = new Label("Select a database :");
 
         Button openButton = new Button("Open");
         openButton.setOnAction(e -> openSelectedDatabase());
+        openButton.setDisable(true);
 
         Button newButton = new Button("New");
         newButton.setOnAction(e -> createNewDatabase());
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(dbComboBox, openButton, newButton);
+        layout.getChildren().addAll(title, dbListView, openButton, newButton);
+        layout.setPadding(new Insets(20));
 
-        Scene scene = new Scene(layout, 300, 200);
+        Scene scene = new Scene(layout, 400, 300);
+
+
         this.setScene(scene);
 
-        loadDatabases();
+        showDatabases();
+
+        openButton.disableProperty().bind(Bindings.isEmpty(dbListView.getSelectionModel().getSelectedItems()));
     }
 
-    private void loadDatabases() {
+    private void showDatabases() {
         Path dbDirectory = Paths.get(ConfigLoader.getProperty("database.path"));
         try {
             List<String> databaseList = Files.list(dbDirectory)
@@ -60,14 +72,14 @@ public class DatabaseSelectorView extends Stage {
                     .collect(Collectors.toList());
 
             ObservableList<String> items = FXCollections.observableArrayList(databaseList);
-            dbComboBox.setItems(items);
+            dbListView.setItems(items);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void openSelectedDatabase() {
-        String selectedDatabase = dbComboBox.getSelectionModel().getSelectedItem();
+        String selectedDatabase = dbListView.getSelectionModel().getSelectedItem();
         if (selectedDatabase != null) {
             DatabaseCredentialsView credentialsView = new DatabaseCredentialsView(selectedDatabase);
             credentialsView.showAndWait();
@@ -89,6 +101,6 @@ public class DatabaseSelectorView extends Stage {
     private void createNewDatabase() {
         DatabaseCreatorView creatorView = new DatabaseCreatorView();
         creatorView.showAndWait();
-        loadDatabases();
+        showDatabases();
     }
 }

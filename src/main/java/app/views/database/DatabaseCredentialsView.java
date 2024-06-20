@@ -1,7 +1,9 @@
 package app.views.database;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -22,17 +24,22 @@ public class DatabaseCredentialsView {
         stage.setTitle("Enter Credentials for " + dbName);
         stage.initModality(Modality.APPLICATION_MODAL);
 
+
+        Label userLabel = new Label("Username:");
+        Label passwordLabel = new Label("Password:");
+
         userField = new TextField();
-        userField.setPromptText("Username");
+        userField.setPromptText("Enter your username");
 
         passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        passwordField.setPromptText("Enter your password");
 
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(e -> submitCredentials());
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(userField, passwordField, submitButton);
+        layout.getChildren().addAll(userLabel, userField, passwordLabel, passwordField, submitButton);
+        layout.setPadding(new Insets(20));
 
         Scene scene = new Scene(layout, 300, 200);
         stage.setScene(scene);

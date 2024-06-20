@@ -101,6 +101,6 @@ public class DatabaseSelectorView extends Stage {
     private void createNewDatabase() {
         DatabaseCreatorView creatorView = new DatabaseCreatorView();
         creatorView.showAndWait();
-        showDatabases();
+        this.close();
     }
 }

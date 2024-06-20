@@ -11,19 +11,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class DatabaseCredentialsView {
+public class DatabaseCredentialsView extends Stage {
 
-    private final Stage stage;
     private final TextField userField;
     private final PasswordField passwordField;
     private String user;
     private String password;
 
     public DatabaseCredentialsView(String dbName) {
-        stage = new Stage();
-        stage.setTitle("Enter Credentials for " + dbName);
-        stage.initModality(Modality.APPLICATION_MODAL);
-
+        this.setTitle("Logging for " + dbName);
+        this.initModality(Modality.APPLICATION_MODAL);
+        this.setResizable(false);
 
         Label userLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
@@ -34,25 +32,25 @@ public class DatabaseCredentialsView {
         passwordField = new PasswordField();
         passwordField.setPromptText("Enter your password");
 
-        Button submitButton = new Button("Submit");
+        Button submitButton = new Button("Logging");
         submitButton.setOnAction(e -> submitCredentials());
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(userLabel, userField, passwordLabel, passwordField, submitButton);
         layout.setPadding(new Insets(20));
 
-        Scene scene = new Scene(layout, 300, 200);
-        stage.setScene(scene);
+        Scene scene = new Scene(layout, 400, 200);
+        this.setScene(scene);
     }
 
     public void showAndWait() {
-        stage.showAndWait();
+        super.showAndWait();
     }
 
     private void submitCredentials() {
         user = userField.getText();
         password = passwordField.getText();
-        stage.close();
+        this.close();
     }
 
     public String getUser() {

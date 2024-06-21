@@ -4,11 +4,8 @@ import app.models.ConnectionManager;
 import app.models.DatabasesManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -16,57 +13,51 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SidePanelView extends BorderPane {
-
-    private final Label headTitle;
-    private final VBox tablesContainer;
+    private VBox tablesContainer;
+    private VBox titleContainer;
 
     public SidePanelView() {
-
+        // MainContainer ----------------------------------------------->
         setPadding(new Insets(20));
+        setBackground(new Background(new BackgroundFill(Color.rgb(47, 48, 48), null, null)));
+        setWidth(500);
 
-        VBox leftPanel = new VBox();
-        leftPanel.setSpacing(10);
+        VBox mainContainer = new VBox();
+        mainContainer.setSpacing(10);
 
+        // Title container --------------------------------------------------->
+        titleContainer = new VBox();
+        titleContainer.setPadding(new Insets(10));
+        titleContainer.setStyle("-fx-border-color: white; -fx-border-width: 0.5px; -fx-padding: 10px;");
+
+        Label titleLabel = new Label("CURRENT DATABASE");
+        titleLabel.setTextFill(Color.WHITE);
+        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
         String dbName = ConnectionManager.getInstance().getDbName();
-        headTitle = new Label("DATABASE NAME:\n" + dbName);
-        headTitle.setTextFill(Color.WHITE);
-        headTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        headTitle.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-padding: 10px;");
+        Label dbNameLabel = new Label(dbName);
+        dbNameLabel.setTextFill(Color.WHITE);
+        dbNameLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
 
+        titleContainer.getChildren().addAll(titleLabel, dbNameLabel);
+
+        // Tables Titles ---------------------------------------------------->
         Label tablesTitle = new Label("TABLES");
         tablesTitle.setTextFill(Color.WHITE);
         tablesTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
+        // TablesContainer --------------------------------------------------->
 
         tablesContainer = new VBox();
+        loadTables();
 
-
-
-        leftPanel.getChildren().addAll(headTitle, tablesTitle, tablesContainer);
-
-
-        Rectangle sidePanelBackground = new Rectangle(400, 1000);
-        sidePanelBackground.setFill(Color.rgb(47, 48, 48));
-
+        // Diplaying --------------------------------------------------------->
+        mainContainer.getChildren().addAll(titleContainer, tablesTitle, tablesContainer);
 
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(sidePanelBackground, leftPanel);
+        stackPane.getChildren().addAll(mainContainer);
 
-        setLeft(stackPane);
-
-        loadTables();
-    }
-
-    public void updateTablesList(List<String> tables)
-    {
-        tablesContainer.getChildren().clear();
-        for (String tableName : tables)
-        {
-            Label tableLabel = new Label(tableName);
-            tableLabel.setTextFill(Color.WHITE);
-            tablesContainer.getChildren().add(tableLabel);
-        }
+        setCenter(stackPane);
     }
 
     private void loadTables() {
@@ -77,6 +68,24 @@ public class SidePanelView extends BorderPane {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void updateTablesList(List<String> tables) {
+        tablesContainer.getChildren().clear();
+        for (String tableName : tables) {
+            Label tableLabel = new Label(tableName);
+            tableLabel.setTextFill(Color.WHITE);
+            tableLabel.setPadding(new Insets(10, 0, 10, 0));
+
+            tableLabel.setOnMouseClicked(event -> handleTableLabelClick(tableName));
+
+            tablesContainer.getChildren().add(tableLabel);
+        }
+    }
+
+    private void handleTableLabelClick(String tableName) {
+        System.out.println("Clicked on table: " + tableName);
+
     }
 }
 

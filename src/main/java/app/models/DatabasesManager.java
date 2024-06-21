@@ -4,11 +4,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseManager {
+public class DatabasesManager {
 
     private final ConnectionManager dbConnection;
 
-    public DatabaseManager() {
+    public DatabasesManager() {
         this.dbConnection = ConnectionManager.getInstance();
     }
 

@@ -1,7 +1,7 @@
-package app.views.main;
+package app.views.panel;
 
 import app.models.ConnectionManager;
-import app.models.DatabaseManager;
+import app.models.DatabasesManager;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -23,8 +23,6 @@ public class SidePanelView extends BorderPane {
     public SidePanelView() {
 
         setPadding(new Insets(20));
-
-
 
         VBox leftPanel = new VBox();
         leftPanel.setSpacing(10);
@@ -60,19 +58,20 @@ public class SidePanelView extends BorderPane {
         loadTables();
     }
 
-    public void updateTablesList(List<String> tables) {
+    public void updateTablesList(List<String> tables)
+    {
         tablesContainer.getChildren().clear();
-        for (String tableName : tables) {
+        for (String tableName : tables)
+        {
             Label tableLabel = new Label(tableName);
             tableLabel.setTextFill(Color.WHITE);
             tablesContainer.getChildren().add(tableLabel);
         }
     }
 
-
     private void loadTables() {
         try {
-            DatabaseManager dbManager = new DatabaseManager();
+            DatabasesManager dbManager = new DatabasesManager();
             List<String> tables = dbManager.getAllUserTables();
             updateTablesList(tables);
         } catch (SQLException ex) {

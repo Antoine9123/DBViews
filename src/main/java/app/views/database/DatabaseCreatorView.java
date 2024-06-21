@@ -1,6 +1,6 @@
 package app.views.database;
 
-import app.models.DatabaseManager;
+import app.models.DatabasesManager;
 import app.views.MainWindowView;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -49,9 +49,6 @@ public class DatabaseCreatorView extends Stage {
         this.setScene(scene);
     }
 
-    public void showAndWait() {
-        super.showAndWait();
-    }
 
     private void createDatabase() {
         String dbName = dbNameField.getText();
@@ -60,7 +57,7 @@ public class DatabaseCreatorView extends Stage {
 
         if (!dbName.isEmpty() && !dbUser.isEmpty() && !dbPassword.isEmpty()) {
             try {
-                DatabaseManager dbManager = new DatabaseManager();
+                DatabasesManager dbManager = new DatabasesManager();
                 dbManager.createDatabase(dbName, dbUser, dbPassword);
 
                 Stage currentStage = (Stage) this.getScene().getWindow();

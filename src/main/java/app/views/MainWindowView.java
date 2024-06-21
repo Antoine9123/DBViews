@@ -1,8 +1,8 @@
 package app.views;
 
-import app.views.main.MainView;
-import app.views.main.MenuBarView;
-import app.views.main.SidePanelView;
+import app.views.panel.MainView;
+import app.views.panel.MenuBarView;
+import app.views.panel.SidePanelView;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -23,7 +23,7 @@ public class MainWindowView extends Stage {
         Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         root.setCenter(mainView);
         root.setLeft(sidePanelView);
-        root.setTop(menuBarView.getMenuBar());
+        root.setTop(menuBarView);
 
         this.setScene(mainScene);
         this.setTitle(WINDOW_TITLE);

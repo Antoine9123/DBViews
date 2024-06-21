@@ -1,6 +1,4 @@
-package app.views.main;
-
-;
+package app.views.panel;
 
 import app.views.database.DatabaseCreatorView;
 import app.views.database.DatabaseSelectorView;
@@ -9,18 +7,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 
-public class MenuBarView {
-    private final MenuBar menuBar;
+public class MenuBarView extends MenuBar {
+
     private final SidePanelView sidePanelView;
 
     public MenuBarView(SidePanelView sidePanelView) {
         this.sidePanelView = sidePanelView;
-        menuBar = new MenuBar();
         setupMenu();
-    }
-
-    public MenuBar getMenuBar() {
-        return menuBar;
     }
 
     private void setupMenu() {
@@ -34,8 +27,9 @@ public class MenuBarView {
 
         fileMenu.getItems().addAll(createDbItem, openDbItem);
 
-        menuBar.getMenus().add(fileMenu);
+        getMenus().add(fileMenu);
     }
+
     private void openDatabaseCreator() {
         DatabaseCreatorView creatorView = new DatabaseCreatorView();
         creatorView.showAndWait();
@@ -45,5 +39,4 @@ public class MenuBarView {
         DatabaseSelectorView selectorView = new DatabaseSelectorView();
         selectorView.showAndWait();
     }
-
 }

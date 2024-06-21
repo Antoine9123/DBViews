@@ -13,10 +13,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SidePanelView extends BorderPane {
+    private final MainView mainView;
     private VBox tablesContainer;
     private VBox titleContainer;
 
-    public SidePanelView() {
+    public SidePanelView(MainView mainView) {
+        this.mainView = mainView;
+        
         // MainContainer ----------------------------------------------->
         setPadding(new Insets(20));
         setBackground(new Background(new BackgroundFill(Color.rgb(47, 48, 48), null, null)));
@@ -77,15 +80,24 @@ public class SidePanelView extends BorderPane {
             tableLabel.setTextFill(Color.WHITE);
             tableLabel.setPadding(new Insets(10, 0, 10, 0));
 
+            setHoverEffect(tableLabel);
             tableLabel.setOnMouseClicked(event -> handleTableLabelClick(tableName));
 
             tablesContainer.getChildren().add(tableLabel);
         }
     }
 
+    private void setHoverEffect(Label label) {
+        label.setOnMouseEntered(e -> {
+            label.setTextFill(Color.YELLOW); 
+        });
+        label.setOnMouseExited(e -> {
+            label.setTextFill(Color.WHITE);
+        });
+    }
+
     private void handleTableLabelClick(String tableName) {
         System.out.println("Clicked on table: " + tableName);
-
     }
 }
 

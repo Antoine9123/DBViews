@@ -17,7 +17,7 @@ public class MainWindowView extends Stage {
         BorderPane root = new BorderPane();
 
         MainView mainView = new MainView(10);
-        SidePanelView sidePanelView = new SidePanelView();
+        SidePanelView sidePanelView = new SidePanelView(mainView);
         MenuBarView menuBarView = new MenuBarView(sidePanelView);
 
         Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
